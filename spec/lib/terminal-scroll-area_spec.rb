@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/terminal-scroll-area'
+require_relative '../../lib/terminal-scroll-area/scroll_area'
 require 'pry'
 
 describe ScrollArea do
   subject { ScrollArea.new(5, 2) }
 
   before(:each) do
-    subject.text = "Lorem ipsum dolor sit amet,\n"    \
-                   "consectetur adipiscing elit.\n"   \
-                   "Pellentesque dapibus dui eget\n"  \
-                   "libero rhoncus, eu volutpat\n"    \
-                   'augue euismod.'
+    subject.content = "Lorem ipsum dolor sit amet,\n"    \
+                      "consectetur adipiscing elit.\n"   \
+                      "Pellentesque dapibus dui eget\n"  \
+                      "libero rhoncus, eu volutpat\n"    \
+                      'augue euismod.'
   end
 
   describe '#render' do
@@ -34,19 +34,19 @@ describe ScrollArea do
 
   describe '#add_string' do
     it 'adds string to scroll area content' do
-      subject.text = ''
+      subject.content = ''
 
       subject.add_string('text')
-      expect(subject.text).to eq('text')
+      expect(subject.content).to eq('text')
     end
   end
 
   describe '#add_line' do
     it 'adds string and a newline to scroll area content' do
-      subject.text = ''
+      subject.content = ''
 
       subject.add_line('text')
-      expect(subject.text).to eq("text\n")
+      expect(subject.content).to eq("text\n")
     end
   end
 
