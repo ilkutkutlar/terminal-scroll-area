@@ -8,20 +8,20 @@ require_relative 'scroll_area'
 # the content in response to user pressing arrow keys.
 class InteractiveScrollArea
   attr_reader :content
-  attr_accessor :width, :height
+  attr_accessor :width, :height, :scroll_area
 
   def initialize(width, height)
     @width = width
     @height = height
 
-    @scroll = ScrollArea.new(@width, @height)
+    @scroll_area = ScrollArea.new(@width, @height)
 
     @reader = TTY::Reader.new(interrupt: :exit)
     @reader.subscribe(self)
   end
 
   def scroll
-    print_in_place(@scroll.render)
+    print_in_place(@scroll_area.render)
     TTY::Cursor.invisible do
       loop do
         @reader.read_keypress
@@ -30,35 +30,35 @@ class InteractiveScrollArea
   end
 
   def content=(new_content)
-    @scroll.content = new_content
+    @scroll_area.content = new_content
   end
 
   def add_string(string)
-    self.content += string
+    @scroll_area.add_string(string)
   end
 
   def add_line(line)
-    self.content += "#{line}\n"
+    @scroll_area.add_line(line)
   end
 
   def keydown(_event)
-    @scroll.scroll_down
-    print_in_place(@scroll.render)
+    @scroll_area.scroll_down
+    print_in_place(@scroll_area.render)
   end
 
   def keyup(_event)
-    @scroll.scroll_up
-    print_in_place(@scroll.render)
+    @scroll_area.scroll_up
+    print_in_place(@scroll_area.render)
   end
 
   def keyright(_event)
-    @scroll.scroll_right
-    print_in_place(@scroll.render)
+    @scroll_area.scroll_right
+    print_in_place(@scroll_area.render)
   end
 
   def keyleft(_event)
-    @scroll.scroll_left
-    print_in_place(@scroll.render)
+    @scroll_area.scroll_left
+    print_in_place(@scroll_area.render)
   end
 
   private
@@ -67,7 +67,7 @@ class InteractiveScrollArea
     cursor = TTY::Cursor
 
     # Scrolling down is needed if there are less lines under
-    # the terminal prompt than the content height. Or else, clearing 
+    # the terminal prompt than the content height. Or else, clearing
     # lines upwards by the content height will remove the prompt as well.
     in_place = TTY::Cursor.scroll_down * (@height - 1)
     in_place << cursor.clear_lines(@height, :up)

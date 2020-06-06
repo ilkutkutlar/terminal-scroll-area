@@ -55,21 +55,36 @@ describe ScrollArea do
     end
   end
 
+  describe '#content=' do
+    it 'sets content and updates content dimensions' do
+      new_content = "test string\nanother line of test"
+      subject.content = new_content
+
+      expect(subject.content).to eq(new_content)
+      expect(subject.instance_variable_get(:@line_count)).to eq(2)
+      expect(subject.instance_variable_get(:@col_count)).to eq(20)
+    end
+  end
+
   describe '#add_string' do
-    it 'adds string to scroll area content' do
+    it 'adds string to scroll area content and updates dimensions to match new content' do
       subject.content = ''
 
       subject.add_string('text')
       expect(subject.content).to eq('text')
+      expect(subject.instance_variable_get(:@line_count)).to eq(1)
+      expect(subject.instance_variable_get(:@col_count)).to eq(4)
     end
   end
 
   describe '#add_line' do
-    it 'adds string and a newline to scroll area content' do
+    it 'adds string and a newline to scroll area content and updates dimensions to match new content' do
       subject.content = ''
 
       subject.add_line('text')
       expect(subject.content).to eq("text\n")
+      expect(subject.instance_variable_get(:@line_count)).to eq(1)
+      expect(subject.instance_variable_get(:@col_count)).to eq(4)
     end
   end
 
