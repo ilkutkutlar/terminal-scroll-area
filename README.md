@@ -6,9 +6,9 @@ The `ScrollArea` class, which is not interactive, does not use Curses or a simil
 
 # Usage
 
-## `ScrollArea`
+## `ScrollArea` class
 
-- You can create a simple scroll area and programmatically scroll the content in all directions.
+- Simple scroll area which lets you programmatically scroll the content in all directions.
 - Initialise:
 
 ```rb
@@ -51,7 +51,7 @@ print(scroll.render)
 scroll.scroll_up
 ```
 
-- Scroll area exposes some values you may find useful:
+- Scroll area lets you access some values you may find useful:
 
 ```rb
 # The starting coordinates of the window which is displayed.
