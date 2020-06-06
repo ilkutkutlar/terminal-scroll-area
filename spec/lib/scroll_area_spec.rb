@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/terminal-scroll-area/scroll_area'
-require 'pry'
 
+# rubocop:disable Metrics/BlockLength
 describe ScrollArea do
   subject { ScrollArea.new(5, 2) }
 
@@ -23,7 +23,7 @@ describe ScrollArea do
       expect(subject.render).to eq(expected)
     end
 
-    it 'shows lines from `start_y` and columns from `start_x`, cropped to dimensions' do
+    :x
       subject.instance_variable_set(:@start_y, 1)
       subject.instance_variable_set(:@start_x, 1)
       expected = "onsec\n" \
@@ -128,7 +128,6 @@ describe ScrollArea do
     end
 
     it 'does nothing if there are no more columns left to the right to show' do
-
       # width is 5, therefore at start_x = 24,
       # this is how the page looks like:
       #
@@ -138,7 +137,7 @@ describe ScrollArea do
       # |pat  |
       # |     |
       #
-      # This is the end of content, i.e. the last page, 
+      # This is the end of content, i.e. the last page,
       # so scrolling right won't show more content.
       # Therefore scrolling right should do nothing
 
@@ -151,3 +150,4 @@ describe ScrollArea do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

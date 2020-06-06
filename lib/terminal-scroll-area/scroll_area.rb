@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'tty-reader'
-
+# Scroll area which only shows a specific area of the content
+# it holds at a time. Able to scroll area in all directions
+# to show a different area of the content.
 class ScrollArea
   attr_reader :start_x, :start_y, :content
   attr_accessor :width, :height
