@@ -17,8 +17,6 @@ class ScrollArea
   end
 
   def render
-    end_x = @start_x + (@width - 1)
-    end_y = @start_y + (@height - 1)
     crop_text(@content, @start_x, @start_y, end_x, end_y)
   end
 
@@ -44,7 +42,6 @@ class ScrollArea
   def scroll_down
     return if @line_count < @height
 
-    end_y = @start_y + (@height - 1)
     @start_y += 1 if end_y < (@line_count - 1)
   end
 
@@ -57,8 +54,15 @@ class ScrollArea
   def scroll_right
     return if @col_count < @width
 
-    end_x = @start_x + (@width - 1)
     @start_x += 1 if end_x < (@col_count - 1)
+  end
+
+  def end_x
+    @start_x + (@width - 1)
+  end
+
+  def end_y
+    @start_y + (@height - 1)
   end
 
   private
@@ -69,11 +73,9 @@ class ScrollArea
   end
 
   def crop_text(text, x_start, y_start, x_end, y_end)
+    return '' if x_start >= @col_count || y_start >= @line_count
+
     lines = text.split("\n")
-
-    return '' if x_start >= lines.first.length || \
-                 y_start >= lines.length
-
     lines = lines[y_start..y_end]
     lines = lines.map { |line| line[x_start..x_end] }
     lines.join("\n")

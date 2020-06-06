@@ -21,6 +21,7 @@ class InteractiveScrollArea
   end
 
   def scroll
+    print_in_place(@scroll.render)
     TTY::Cursor.invisible do
       loop do
         @reader.read_keypress
@@ -63,11 +64,17 @@ class InteractiveScrollArea
   private
 
   def print_in_place(text)
-    print(TTY::Cursor.clear_lines(@height, :down))
-    print(TTY::Cursor.column(0))
-    print(TTY::Cursor.up(@height - 1))
-    print(text)
-    print(TTY::Cursor.column(0))
-    print(TTY::Cursor.up(@height - 1))
+    cursor = TTY::Cursor
+
+    # Scrolling down is needed if there are less lines under
+    # the terminal prompt than the content height. Or else, clearing 
+    # lines upwards by the content height will remove the prompt as well.
+    in_place = TTY::Cursor.scroll_down * (@height - 1)
+    in_place << cursor.clear_lines(@height, :up)
+    in_place << cursor.save
+    in_place << text
+    in_place << cursor.restore
+
+    print(in_place)
   end
 end

@@ -9,8 +9,8 @@ describe ScrollArea do
   before(:each) do
     subject.content = "Lorem ipsum dolor sit amet,\n"    \
                       "consectetur adipiscing elit.\n"   \
-                      "Pellentesque dapibus dui eget\n"  \
-                      "libero rhoncus, eu volutpat\n"    \
+                      "Pellentesque dapibus \n"  \
+                      "libero rhoncus, eu vol\n"    \
                       'augue euismod.'
   end
 
@@ -23,11 +23,34 @@ describe ScrollArea do
       expect(subject.render).to eq(expected)
     end
 
-    :x
+    it 'shows lines from `start_y` and columns from `start_x`, cropped to dimensions' do
       subject.instance_variable_set(:@start_y, 1)
       subject.instance_variable_set(:@start_x, 1)
       expected = "onsec\n" \
                  'ellen'
+      expect(subject.render).to eq(expected)
+    end
+
+    it 'shows a blank line if `start_x` is too large for the line to be visible' do
+      # e.g. if start_y is 3, these two lines are visible:
+      # libero rhoncus, eu volutpat
+      # augue euismod.
+      #
+      # if start_x is 15, then lines are cropped to this:
+      #
+      # libero rhoncus,| eu v|ol
+      # augue euismod. |     |
+      #
+      # and expected output is " eu v\n"
+      subject.instance_variable_set(:@start_y, 3)
+      subject.instance_variable_set(:@start_x, 15)
+      expected = " eu v\n"
+      expect(subject.render).to eq(expected)
+
+      subject.height = 3
+      subject.instance_variable_set(:@start_y, 2)
+      subject.instance_variable_set(:@start_x, 25)
+      expected = "\n\n"
       expect(subject.render).to eq(expected)
     end
   end
@@ -147,6 +170,19 @@ describe ScrollArea do
       subject.instance_variable_set(:@start_x, last_page_start_x)
       subject.scroll_right
       expect(subject.start_x).to eq(last_page_start_x)
+    end
+  end
+  describe '#end_x' do
+    it 'returns the zero-based column number of the last character displayed' do
+      subject.instance_variable_set(:@start_x, 4)
+      expect(subject.end_x).to eq(8)
+    end
+  end
+
+  describe '#end_y' do
+    it 'returns the zero-based line number of the last line displayed' do
+      subject.instance_variable_set(:@start_y, 4)
+      expect(subject.end_y).to eq(5)
     end
   end
 end
