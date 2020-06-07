@@ -4,6 +4,18 @@ This gem lets the user display large text on terminal by creating a scroll area 
 
 The `ScrollArea` class, which is not interactive, does not use Curses or a similar screen management library. The `InteractiveScrollArea` class does not rely on the Curses library and instead uses the [TTY toolkit](https://github.com/piotrmurach/tty), which has cross platform support and support for many types of terminals/terminal emulators. Therefore this gem should also have the same level of support.
 
+# Installation
+
+```rb
+gem install 'terminal-scroll-area'
+```
+
+or add it to your project's `Gemfile`:
+
+```rb
+gem 'terminal-scroll-area'
+```
+
 # Usage
 
 ## `ScrollArea` class
