@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/terminal-scroll-area.svg)](https://badge.fury.io/rb/terminal-scroll-area)
 
+<img alt="Gif showing usage" src="https://raw.githubusercontent.com/ilkutkutlar/terminal-scroll-area/master/usage.gif" width=50%>
+
 This gem lets the user display large text on terminal by creating a scroll area in which only a specified portion of the text is displayed at a time. This portion can be moved to reveal other parts of the text, analogous to a GUI scroll area, or a more general purpose pager. This gem is useful when your program needs to display a large amount of text that may not fit into the screen.
 
 The `ScrollArea` class, which is not interactive, does not use Curses or a similar screen management library. The `InteractiveScrollArea` class does not rely on the Curses library and instead uses the [TTY toolkit](https://github.com/piotrmurach/tty), which has cross platform support and support for many types of terminals/terminal emulators. Therefore this gem should also have the same level of support.
