@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'terminal-scroll-area'
-  spec.version = '0.0.1'
+  spec.version = '0.0.2'
   spec.authors = ['Ilkut Kutlar']
   spec.email = ['ilkutkutlar@gmail.com']
   spec.summary = 'Scroll area to display large text on terminal'
@@ -8,12 +8,8 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/ilkutkutlar/terminal-scroll-area'
   spec.license = 'MIT'
 
-  spec.files = [
-    'README.md',
-    'lib/terminal-scroll-area.rb',
-    'lib/terminal-scroll-area/scroll_area.rb',
-    'lib/terminal-scroll-area/interactive_scroll_area.rb',
-  ]
+  spec.files = Dir['lib/**/*']
+  spec.extra_rdoc_files = ['README.md', 'LICENSE']
   spec.require_paths = ['lib']
   
   spec.required_ruby_version = '>= 2.0.0'
