@@ -28,6 +28,8 @@ gem 'terminal-scroll-area'
 - Initialise:
 
 ```rb
+require 'terminal-scroll-area'
+
 # Only display 5 lines at a time with
 # 5 characters in each line.
 width = 5
