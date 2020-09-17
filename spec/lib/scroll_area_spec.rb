@@ -78,7 +78,7 @@ describe ScrollArea do
   end
 
   describe '#add_line' do
-    it 'adds string and a newline to scroll area content and updates dimensions to match new content' do
+    it 'adds string and newline to scroll area content, updates dimensions to match new content' do
       subject.content = ''
 
       subject.add_line('text')

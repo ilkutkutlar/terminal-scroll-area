@@ -2,6 +2,7 @@
 
 require_relative '../../lib/terminal-scroll-area/interactive_scroll_area'
 
+# rubocop:disable Metrics/BlockLength
 describe InteractiveScrollArea do
   subject { InteractiveScrollArea.new(10, 3) }
   let(:cursor_scroll_down_twice) { "\eD\eD" }
@@ -66,7 +67,7 @@ describe InteractiveScrollArea do
     it 'scrolls scroll area up and draws new visible content in place' do
       subject.scroll_area.instance_variable_set(:@start_y, 1)
       subject.scroll_area.instance_variable_set(:@start_x, 0)
-      
+
       expected = "#{cursor_scroll_down_twice}#{cursor_clear_three_lines}#{cursor_save}" \
                  "Lorem ipsu\nconsectetu\nPellentesq#{cursor_restore}"
 
@@ -79,7 +80,7 @@ describe InteractiveScrollArea do
     it 'scrolls scroll area left and draws new visible content in place' do
       subject.scroll_area.instance_variable_set(:@start_y, 0)
       subject.scroll_area.instance_variable_set(:@start_x, 6)
-      
+
       expected = "#{cursor_scroll_down_twice}#{cursor_clear_three_lines}#{cursor_save}" \
                  " ipsum dol\nctetur adi\nntesque da#{cursor_restore}"
 
@@ -92,7 +93,7 @@ describe InteractiveScrollArea do
     it 'scrolls scroll area right and draws new visible content in place' do
       subject.scroll_area.instance_variable_set(:@start_y, 0)
       subject.scroll_area.instance_variable_set(:@start_x, 6)
-      
+
       expected = "#{cursor_scroll_down_twice}#{cursor_clear_three_lines}#{cursor_save}" \
                  "psum dolor\netur adipi\nesque dapi#{cursor_restore}"
 
@@ -101,3 +102,4 @@ describe InteractiveScrollArea do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
