@@ -8,7 +8,7 @@ This gem lets the user display large text on terminal by creating a scroll area 
 
 The `ScrollArea` class, which is not interactive, does not use Curses or a similar screen management library. The `InteractiveScrollArea` class does not rely on the Curses library and instead uses the [TTY toolkit](https://github.com/piotrmurach/tty), which has cross platform support and support for many types of terminals/terminal emulators. Therefore this gem should also have the same level of support.
 
-# Installation
+## Installation
 
 ```rb
 gem install 'terminal-scroll-area'
@@ -20,9 +20,9 @@ or add it to your project's `Gemfile`:
 gem 'terminal-scroll-area'
 ```
 
-# Usage
+## Usage
 
-## `ScrollArea` class
+### `ScrollArea` class
 
 - Simple scroll area which lets you programmatically scroll the content in all directions.
 - Initialise:
@@ -79,7 +79,7 @@ scroll.end_x
 scroll.end_y
 ```
 
-## `InteractiveScrollArea`
+### `InteractiveScrollArea`
 
 - Regular `ScrollArea` lets you scroll the content with `scroll_<direction>` methods. `InteractiveScrollArea` displays an interactive scroll area where the user can use arrow keys to control scrolling of the content (e.g. up arrow scrolls up, etc.).
 - This class will automatically print a new rendering of the area after user has triggered a scroll event by pressing a key. The previously printed rendering is removed and the updated rendering is printed in the same area, thereby giving the feeling of interactivity.
@@ -96,3 +96,9 @@ interactive.content = "some text"
 # scroll the content. Press Ctrl + C to exit.
 interactive.scroll
 ```
+
+## Development
+
+- Officially, this gem supports Ruby versions >= 2.0.0 and such a Ruby version should be used during development as well.
+- Tests are written with [Rspec](https://github.com/rspec/rspec), version ~3.9. Run the tests on terminal with `rspec` in the project directory (need to install rspec first).
+- [Rubocop](https://github.com/rubocop-hq/rubocop) version ~0.8.2 is used to check for use of best practices and standard styling. Run Rubocop on the terminal with `rubocop` in the project directory (need to install Rubocop first). Currently, there are a couple of failing Rubocop checks which will be fixed soon.
